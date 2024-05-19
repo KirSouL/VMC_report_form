@@ -1,6 +1,7 @@
 import json
 from fieldefect import get_field
 
+
 def load_data_def():
     """
     Функция формирования файла с шифровкой дефектов.
@@ -14,7 +15,7 @@ def load_data_def():
 
 def min_cut():
     """
-    Фунция
+    Функция открытия файла с информацие о минимальной ширине шва
     :return: возвращает информацию по минимальной ширине сварного шва в зависимости от толщины стенки.
     """
     with open("data_edge_cutting_minimum.json", "r", encoding="utf-8") as file:
@@ -24,7 +25,10 @@ def min_cut():
 
 
 def max_cut():
-
+    """
+    Функция открытия файла с информацие о максимальной ширине шва
+    :return: возвращает информацию по максимальной ширине сварного шва в зависимости от толщины стенки.
+    """
     with open("data_edge_cutting_maximum.json", "r", encoding="utf-8") as file:
         edge_max_cut = json.load(file)
 
