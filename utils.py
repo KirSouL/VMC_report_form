@@ -1,17 +1,6 @@
 import CalculateDentSeam
-import json
 import math
-
-
-def load_file():
-    """
-    Функция загрузки файла с полевыми данными
-    :return: возвращает прочитанный файл json
-    """
-    with open('data_field_defect.json', 'r') as file:
-        load_field = json.load(file)
-
-    return load_field
+from loadfile import field_def
 
 
 def download_calc_dent():
@@ -24,7 +13,7 @@ def download_calc_dent():
              для ветки иначе -- ключевые характеристики дефекта + если истина -- значение критической величины и
              часовая ориентация; или + иначе значение критической величины; значение деформации; часовая ориентация
     """
-    for item in load_file():
+    for item in field_def():
         if item.get("name_defect") == "вмятина":
             user_type_calc = str(input('Выберите раздел расчета для вмятины (5.5 или 6.4): '))
 
@@ -80,7 +69,7 @@ def axial_fracture():
     Функция расчета перелома осей
     :return: возвращается значение угла, информации о дефекте, часовой ориентации
     """
-    for item in load_file():
+    for item in field_def():
         if item.get("name_defect") == "перелом осей":
             user_len = int(input("Введите размер площадки замера, мм: "))
             tan_angle = float(item.get("depth")) / user_len
