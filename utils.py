@@ -16,8 +16,13 @@ def load_file():
 
 def download_calc_dent():
     """
-    Функция обработки дефекта типа "вмятина"
-    :return:
+    Фунцкия запускает проверки для "Вмятины"
+    :return: для ветки 5.5 (если) -- ключевые характеристики дефекта; выполение / не выполнение условия расположение
+             дефекта на стыке; выполение / не выполнение условия расположение дефекта на расстояние от кольца;
+             выполение / не выполнение условия расположение дефекта на расстояние от продольного стыка; выполение /
+             не выполнение условия по глубине дефекта; часовая ориентация дефекта.
+             для ветки иначе -- ключевые характеристики дефекта + если истина -- значение критической величины и
+             часовая ориентация; или + иначе значение критической величины; значение деформации; часовая ориентация
     """
     for item in load_file():
         if item.get("name_defect") == "вмятина":
@@ -30,24 +35,30 @@ def download_calc_dent():
             if user_type_calc == '5.5':
                 # return тут экземпляр класса 'вмятины' CalculateDentSeam.PointFiveFive()
                 dent = CalculateDentSeam.PointFiveFive(nd, dim, cz, cfw, lh, wm, dh)
-                print(dent)
-                print(dent.is_dent_weld())
-                print(dent.is_depth_more())
-                print(dent.is_minimum_distance_annular_weld())
-                print(conversion_to_hours(cz, dim))
+                i_d_w = dent.is_dent_weld()
+                i_d_m = dent.is_depth_more()
+                user_coord_long = input("Введите координату от продольного стыка, мм: ")
+                imdaw = dent.is_minimum_distance_annular_weld()
+                imdlw = dent.is_minimum_distance_longitudinal_weld(user_coord_long)
+                cth = conversion_to_hours(cz, dim)
+
+                return dent, i_d_w, imdaw, imdlw, i_d_m, cth
+
             else:
                 ts = item.get("thickness")
                 dent = CalculateDentSeam.PointSixFour(nd, dim, cz, cfw, lh, wm, dh, ts)
-                crit_two = dent.two_percent()[1]
-                if crit_two is True:
-                    print(crit_two)
-                    print(conversion_to_hours(cz, dim))
+                crit_two_number, crit_two_bool = dent.two_percent()
+                if crit_two_bool is True:
+                    cth = conversion_to_hours(cz, dim)
+
+                    return dent, crit_two_number, cth
+
                 else:
                     type_dent = input("Тип вмятины (плавная или с углублением): ")
-                    print(dent.calculete_deformation(type_dent))
-                    print(conversion_to_hours(cz, dim))
+                    calc_def = dent.calculete_deformation(type_dent)
+                    cth = conversion_to_hours(cz, dim)
 
-                # return тут экземпляр класса 'вмятины' CalculateDentSeam.PointSixFour()
+                    return dent, crit_two_number, calc_def, cth
 
 
 def conversion_to_hours(*args):
