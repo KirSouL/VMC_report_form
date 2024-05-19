@@ -69,13 +69,13 @@ coordinate_from_weld: {self.coordinate_from_weld}, length: {self.length}, width:
     #     self.coordinate_from_weld = coordinate_from_annular_weld
 
     # @property
-    def is_minimum_distance_longitudinal_weld(self):
+    def is_minimum_distance_longitudinal_weld(self, coord_long_dent):
         """
         Метод подкласса PointFiveFive, который реализует проверку расположения вмятины
         от продлольного стыка, согласно пункту 5.5 НТД (СТО Газпром 27.3-2.2-006-2023).
         :return: True если координата меньше +- 50 от  шва, иначе False
         """
-        return self.coordinate_from_weld <= 50
+        return coord_long_dent <= 50
 
     # Не факт что пригодится, закомментированный кусок
     # @is_minimum_distance_longitudinal_weld.setter
