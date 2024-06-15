@@ -8,7 +8,7 @@ def load_file():
     Функция загрузки файла с полевыми данными
     :return: возвращает прочитанный файл json
     """
-    with open('data_field_defect.json', 'r') as file:
+    with open('../data_field_defect.json', 'r') as file:
         load_field = json.load(file)
 
     return load_field
