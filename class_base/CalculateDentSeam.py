@@ -157,4 +157,3 @@ class PointSixFour(CalculateDentWeld):
 # else:
 #     print(f"Глубина вмятины меньше 2% от {dent.diameter}, эквивалентная деформация {round(dent.calculete_deformation()[0], 2)} < 6%"
 #           f"Результат оценки 'Годен'")
-
