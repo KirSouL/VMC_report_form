@@ -8,7 +8,7 @@ def open_file_field():
     Функция открытия файла Excel
     :return: аквтивация первого листа файла Excel
     """
-    file_field = os.path.abspath('Данные.xlsx')
+    file_field = os.path.abspath('../Данные.xlsx')
     workbook = openpyxl.load_workbook(file_field)
     worksheet_one = workbook.worksheets[0]
 
@@ -16,6 +16,10 @@ def open_file_field():
 
 
 def list_defect():
+    """
+    Функция преобразования данных из формата Excel в формат списка с вложенными словарями.
+    :return: возвращается список с набором словарей для формирования файла *.json
+    """
     list_ = []
     dict_ = {}
     list_t = []
@@ -61,10 +65,7 @@ def list_defect():
     return list_t
 
 
-def get_field_json():
-    """Функция генерирует json файл. Данные берутся из файла Excel"""
-    with open('data_field_defect.json', 'w', encoding='utf-8') as file:
+def get_field():
+    """Функция генерирует файл *.json из списка полученного из функции list_defect()"""
+    with open('../data_field_defect.json', 'w', encoding='utf-8') as file:
         json.dump(list_defect(), file, indent=4)
-    # # Строчки ниже для проверки результата
-    # with open('data_field_defect.json', 'r') as file:
-    #     print(json.load(file))
