@@ -11,7 +11,7 @@ import datetime
 
 def open_file():
     # Расположение файла с данными о приборах и их поверке
-    file_location = os.path.abspath('Данные по приборам.xlsx')
+    file_location = os.path.abspath('../Данные по приборам.xlsx')
     # Загрузка файла эксель -- 'Данные по приборам'
     workbook_data_device = openpyxl.load_workbook(file_location)
     # Активация первого листа эксель файла
@@ -52,10 +52,10 @@ def get_json():
     """
     Функция генерирует json файл.
     """
-    with open('device.json', 'w', encoding='utf-8') as file:
+    with open('../device.json', 'w', encoding='utf-8') as file:
         json.dump(data_device(), file, indent=4)
     # Строчки ниже для проверки результата
-    with open('device.json', 'r') as file:
+    with open('../device.json', 'r') as file:
         print(json.load(file))
 
 
